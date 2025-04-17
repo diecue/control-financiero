@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8">
+  <title>Listado de Barrios</title>
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <!-- DataTables CSS -->
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.3/css/dataTables.bootstrap4.min.css">
+</head>
+<body>
+  <div class="container mt-4">
+    <h2 class="mb-3">Listado de Barrios</h2>
+    <div class="mb-3">
+      <a href="/" class="btn btn-secondary">Volver al Index</a>
+      <a href="/barrios/form" class="btn btn-success">Nuevo Barrio</a>
+    </div>
+    <table id="barriosTable" class="table table-bordered table-striped">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Descripción</th>
+          <th>ID Ciudad</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr th:each="barrio : ${barrios}">
+          <td th:text="${barrio.id}"></td>
+          <td th:text="${barrio.descripcion}"></td>
+          <td th:text="${barrio.ciudad.descripcion}"></td>
+          <td>
+            <a th:href="@{'/barrios/editar/' + ${barrio.id}}" class="btn btn-sm btn-info">Editar</a>
+            <form th:action="@{/barrios/eliminar}" method="post" style="display:inline-block;">
+              <input type="hidden" name="id" th:value="${barrio.id}" />
+              <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('¿Está seguro de eliminar este barrio?');">Eliminar</button>
+            </form>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- jQuery, Bootstrap and DataTables JS -->
+  <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+  <script src="https://cdn.datatables.net/1.13.3/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdn.datatables.net/1.13.3/js/dataTables.bootstrap4.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script>
+    $(document).ready(function() {
+      $('#barriosTable').DataTable({
+        // Puedes agregar opciones adicionales a DataTables aquí
+      });
+    });
+  </script>
+</body>
+</html>
