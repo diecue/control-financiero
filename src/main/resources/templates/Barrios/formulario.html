@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Formulario Barrio</title>
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+  <div class="container mt-4">
+    <h2 th:text="${barrio.id == null ? 'Nuevo Barrio' : 'Editar Barrio'}">Formulario Barrio</h2>
+    <form th:action="@{/barrios/guardar}" method="post">
+      <input type="hidden" name="id" th:value="${barrio.id}" />
+
+      <div class="form-group">
+        <label for="descripcion">Descripción:</label>
+        <input type="text" id="descripcion" name="descripcion" 
+               th:value="${barrio.descripcion}" class="form-control" required maxlength="80" />
+      </div>
+      
+      <!-- Dropdown para seleccionar la Ciudad -->
+      <div class="form-group">
+        <label for="ciudad">Ciudad:</label>
+        <select id="ciudad" name="ciudad.id" class="form-control" required>
+          <option value="" disabled selected>Seleccione Ciudad</option>
+          <!-- Por cada ciudad de la lista se crea una opción -->
+          <option th:each="ciudad : ${ciudades}"
+                  th:value="${ciudad.id}"
+                  th:text="${ciudad.descripcion}"
+                  th:selected="${barrio?.ciudad?.id} == ${ciudad.id}">
+          </option>
+        </select>
+      </div>
+      
+      <button type="submit" class="btn btn-primary">Guardar</button>
+      <a href="/barrios" class="btn btn-secondary">Cancelar</a>
+    </form>
+  </div>
+
+  <!-- jQuery y Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

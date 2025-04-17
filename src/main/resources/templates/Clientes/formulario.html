@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8">
+  <title>Formulario Cliente</title>
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+  <div class="container mt-4">
+    <h2 th:text="${cliente.id == null ? 'Nuevo Cliente' : 'Editar Cliente'}">Formulario Cliente</h2>
+    <form th:action="@{/clientes/guardar}" method="post">
+      <!-- Campo oculto para ID -->
+      <input type="hidden" name="id" th:value="${cliente.id}" />
+
+      <div class="form-group">
+        <label for="razonSocial">Razón Social:</label>
+        <input type="text" id="razonSocial" name="razonSocial" th:value="${cliente.razonSocial}" class="form-control" required maxlength="100">
+      </div>
+      
+      <div class="form-group">
+        <label for="ruc">RUC:</label>
+        <input type="text" id="ruc" name="ruc" th:value="${cliente.ruc}" class="form-control" required maxlength="20">
+      </div>
+
+      <div class="form-group">
+        <label for="direccion">Dirección:</label>
+        <input type="text" id="direccion" name="direccion" th:value="${cliente.direccion}" class="form-control" required maxlength="100">
+      </div>
+
+      <div class="form-group">
+        <label for="telefono">Teléfono:</label>
+        <input type="text" id="telefono" name="telefono" th:value="${cliente.telefono}" class="form-control" required maxlength="20">
+      </div>
+
+      <div class="form-group">
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" th:value="${cliente.email}" class="form-control" required maxlength="50">
+      </div>
+
+      <div class="form-group">
+        <label for="tipoCliente">Tipo Cliente:</label>
+        <input type="text" id="tipoCliente" name="tipoCliente" th:value="${cliente.tipoCliente}" class="form-control" maxlength="3">
+      </div>
+
+      <div class="form-group">
+        <label for="barrio">Barrio:</label>
+        <select id="barrio" name="barrio" class="form-control" required>
+          <option value="" disabled selected>Seleccione Barrio</option>
+          <option th:each="barrio : ${barrios}"
+                  th:value="${barrio.id}"
+                  th:text="${barrio.descripcion}"
+                  th:selected="${cliente?.barrio?.id} == ${barrio.id}"></option>
+        </select>
+      </div>
+
+      <button type="submit" class="btn btn-primary">Guardar</button>
+      <a href="/clientes" class="btn btn-secondary">Cancelar</a>
+    </form>
+  </div>
+
+  <!-- jQuery and Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
