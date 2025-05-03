@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title th:text="${banco?.id == null ? 'Nuevo Banco' : 'Editar Banco'}">
+    Banco
+  </title>
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+</head>
+<body class="p-4">
+<div class="container">
+
+  <h4 th:text="${banco?.id == null ? 'Nuevo Banco' : 'Editar Banco'}"></h4>
+
+  <form th:action="@{/bancos/guardar}" method="post" class="mt-3">
+    <input type="hidden" name="id" th:value="${banco.id}">
+
+    <div class="mb-3">
+      <label class="form-label">Descripción</label>
+      <input type="text" name="descripcion" class="form-control"
+             th:value="${banco.descripcion}" required maxlength="50">
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Teléfono</label>
+      <input type="text" name="telefono" class="form-control"
+             th:value="${banco.telefono}" maxlength="15">
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Dirección</label>
+      <input type="text" name="direccion" class="form-control"
+             th:value="${banco.direccion}" maxlength="200">
+    </div>
+
+    <button class="btn btn-success" type="submit">Guardar</button>
+    <a href="/bancos" class="btn btn-secondary">Cancelar</a>
+  </form>
+
+</div>
+</body>
+</html>

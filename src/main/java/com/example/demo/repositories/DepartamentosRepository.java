@@ -4,11 +4,11 @@ import java.util.List;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
-import com.example.demo.models.Ciudades;
+import com.example.demo.models.Departamentos;
 
 @Repository
-public interface CiudadesRepository extends CrudRepository<Ciudades, Integer> {
+public interface DepartamentosRepository extends CrudRepository<Departamentos, Integer> {
 
-    @Query("select c from Ciudades c")
-    List<Ciudades> findByAll();
+    @Query("select d from Departamentos d")
+    List<Departamentos> findByAll();
 }

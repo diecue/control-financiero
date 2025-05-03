@@ -6,20 +6,19 @@ import jakarta.validation.constraints.Size;
 import lombok.Data;
 
 @Entity
-@Table(name = "ciudades",
-       uniqueConstraints = @UniqueConstraint(columnNames = "descripcion"))
+@Table(name = "departamentos")
 @Data
-public class Ciudades {
+public class Departamentos {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_ciudad")
+    @Column(name = "id_departamento")
     private Integer id;
 
-    // Relación con Departamentos
+    // Relación con Paises
     @ManyToOne(optional = false)
-    @JoinColumn(name = "id_departamento", nullable = false)
-    private Departamentos departamento;
+    @JoinColumn(name = "id_pais", nullable = false)
+    private Paises pais;
 
     @NotBlank
     @Size(max = 80)
